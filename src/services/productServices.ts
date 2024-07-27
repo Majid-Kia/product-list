@@ -1,4 +1,5 @@
 const baseUrl = "https://fakestoreapi.com";
+
 export const getProductsData = async () => {
   const res = await fetch(`${baseUrl}/products`);
   if (!res.ok) {
