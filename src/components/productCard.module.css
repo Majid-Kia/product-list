@@ -1,0 +1,13 @@
+.cardImage {
+  width: auto;
+  height: 200px;
+  max-width: 100%;
+}
+
+.category {
+  border-radius: 20px;
+  margin-left: auto;
+  background-color: #eaeaea;
+  padding: 6px 12px;
+  font-size: 12px;
+}
