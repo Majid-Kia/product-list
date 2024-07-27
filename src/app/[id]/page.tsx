@@ -6,7 +6,6 @@ import { getProductDetail } from "@/services/productServices";
 import ProductDetailModule from "@/components/ProductDetailModule";
 
 interface ProductDetailProps {
-  product: Product | null;
   params: {
     id: string;
   };
