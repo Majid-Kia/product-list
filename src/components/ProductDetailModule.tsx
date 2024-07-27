@@ -16,7 +16,8 @@ function ProductDetailModule({ product }: { product: Product }) {
             height={480}
             alt={product.category}
             className="m-auto"
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: "contain", maxHeight: "480px", width: "auto" }}
+            layout="responsive"
           />
         </div>
         <Card.Body>
