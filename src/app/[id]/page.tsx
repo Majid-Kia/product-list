@@ -1,7 +1,6 @@
 // app/products/[id]/page.tsx
 import { notFound } from "next/navigation";
 import { FC } from "react";
-import { Product } from "@/types/products";
 import { getProductDetail } from "@/services/productServices";
 import ProductDetailModule from "@/components/ProductDetailModule";
 
