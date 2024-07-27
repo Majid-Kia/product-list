@@ -8,6 +8,7 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import styles from "./productCard.module.css";
 import Rating from "./Rating";
 import Spinner from "react-bootstrap/Spinner";
+import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,27 +36,29 @@ export default function ProductCard({ product }: { product: Product }) {
     <Card ref={cardRef}>
       {isVisible ? (
         <>
-          <div className="d-flex justify-center p-4">
-            <Image
-              src={product.image}
-              width={633}
-              height={879}
-              alt={product.category}
-              className={`${styles.cardImage} m-auto`}
-            ></Image>
-          </div>
-          <div className="px-4 py-3 d-flex flex-column ">
-            <span className={styles.category}>{product.category}</span>
-            <h3 className="h6 text-truncate mt-3">{product.title}</h3>
-            <div className="d-flex  align-items-center">
-              <Rating rating={product.rating.rate} />
-              <span className="ml-4 text-black-50">
-                ({product.rating.count} reviews)
-              </span>
+          <Link href={`/${product.id}`} passHref>
+            <div className="d-flex justify-center p-4">
+              <Image
+                src={product.image}
+                width={633}
+                height={879}
+                alt={product.category}
+                className={`${styles.cardImage} m-auto`}
+              ></Image>
             </div>
+            <div className="px-4 py-3 d-flex flex-column ">
+              <span className={styles.category}>{product.category}</span>
+              <h3 className="h6 text-truncate mt-3">{product.title}</h3>
+              <div className="d-flex  align-items-center">
+                <Rating rating={product.rating.rate} />
+                <span className="ml-4 text-black-50">
+                  ({product.rating.count} reviews)
+                </span>
+              </div>
 
-            <span className="mt-2">${product.price}</span>
-          </div>
+              <span className="mt-2">${product.price}</span>
+            </div>
+          </Link>
         </>
       ) : (
         <div className={styles.loading}>
