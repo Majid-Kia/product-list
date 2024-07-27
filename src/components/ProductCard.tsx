@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import styles from "./productCard.module.css";
 import Rating from "./Rating";
+import Spinner from "react-bootstrap/Spinner";
 
 export default function ProductCard({ product }: { product: Product }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -57,8 +58,10 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
         </>
       ) : (
-        <div className="" style={{ height: "500px" }}>
-          Loading...
+        <div className={styles.loading}>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
         </div>
       )}
     </Card>

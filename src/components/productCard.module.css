@@ -11,3 +11,10 @@
   padding: 6px 12px;
   font-size: 12px;
 }
+
+.loading {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
