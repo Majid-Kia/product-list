@@ -1,45 +1,58 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useState, useMemo, useCallback } from "react";
 import type { Products, Product } from "@/types/products";
 import { Row, Col, Form } from "react-bootstrap";
 import ProductCard from "@/components/ProductCard";
 
 const ProductList: FC<{ products: Products }> = ({ products }) => {
-  const [sort, setsort] = useState<string>("default");
+  const [sort, setSort] = useState<string>("default");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const sortProducts = (products: Products) => {
-    switch (sort) {
-      case "price-asc":
-        return [...products].sort((a, b) => a.price - b.price);
-      case "price-desc":
-        return [...products].sort((a, b) => b.price - a.price);
-      case "rating-asc":
-        return [...products].sort((a, b) => a.rating.rate - b.rating.rate);
-      case "rating-desc":
-        return [...products].sort((a, b) => b.rating.rate - a.rating.rate);
-      default:
-        return products;
-    }
-  };
+  const sortProducts = useCallback(
+    (products: Products) => {
+      switch (sort) {
+        case "price-asc":
+          return [...products].sort((a, b) => a.price - b.price);
+        case "price-desc":
+          return [...products].sort((a, b) => b.price - a.price);
+        case "rating-asc":
+          return [...products].sort((a, b) => a.rating.rate - b.rating.rate);
+        case "rating-desc":
+          return [...products].sort((a, b) => b.rating.rate - a.rating.rate);
+        default:
+          return products;
+      }
+    },
+    [sort]
+  );
 
-  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setsort(event.target.value);
-  };
+  const handleSortChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSort(event.target.value);
+    },
+    []
+  );
 
-  const filterProducts = (products: Products) => {
-    return products.filter((product) =>
-      product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  };
+  const handleSearchChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(event.target.value);
+    },
+    []
+  );
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
+  const filterProducts = useCallback(
+    (products: Products) => {
+      return products.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    },
+    [searchQuery]
+  );
 
-  const sortedAndFilteredProducts = sortProducts(filterProducts(products));
-
+  const sortedAndFilteredProducts = useMemo(() => {
+    return sortProducts(filterProducts(products));
+  }, [products, sortProducts, filterProducts]);
   return (
     <>
       <Row>
